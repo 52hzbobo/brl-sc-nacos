@@ -1,0 +1,32 @@
+# server
+server:
+  port: 12820
+
+# Spring
+spring:
+  application:
+    name: scbrl-cloud-admin
+  profiles:
+    active: dev
+
+---
+# 开发环境
+spring:
+  profiles: dev
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+    nacos:
+      config:
+        server-addr: 124.70.221.13:8848
+        namespace: 20a4fca1-1700-43b9-9094-918b55b9460f
+        file-extension: yml
+        shared-configs:
+          - dataId: scbrl-base.yml
+            refresh: true
+      discovery:
+        server-addr: 124.70.221.13:8848
+        namespace: 20a4fca1-1700-43b9-9094-918b55b9460f
+
+

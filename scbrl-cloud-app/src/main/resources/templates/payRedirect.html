@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>redirecting...</title>
+</head>
+<body onload="document.forms[0].submit()">
+<!--<body>-->
+<div>
+    跳转页。。。
+</div>
+<form name="myRedirectForm" th:action="${pay.gateway}" method="post" >
+    <input name="pay_amount" type="hidden" th:value="${pay.pay_amount}" />
+    <input name="pay_applydate" type="hidden" th:value="${pay.pay_applydate}" />
+    <input name="pay_bankcode" type="hidden" th:value="${pay.pay_bankcode}" />
+    <input name="pay_callbackurl" type="hidden" th:value="${pay.pay_callbackurl}" />
+    <input name="pay_memberid" type="hidden" th:value="${pay.pay_memberid}" />
+    <input name="pay_notifyurl" type="hidden" th:value="${pay.pay_notifyurl}" />
+    <input name="pay_orderid" type="hidden" th:value="${pay.pay_orderid}" />
+    <input name="pay_md5sign" type="hidden" th:value="${pay.pay_md5sign}" />
+    <input name="pay_name" type="hidden" th:value="${pay.pay_name}" />
+    <input name="pay_mobile" type="hidden" th:value="${pay.pay_mobile}" />
+    <input name="pay_email" type="hidden" th:value="${pay.pay_email}" />
+    <input name="pay_account" type="hidden" th:value="${pay.pay_account}" />
+    <input type="submit" value="click to continue..." />
+</form>
+</body>
+</html>

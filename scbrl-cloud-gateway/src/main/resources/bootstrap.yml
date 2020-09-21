@@ -1,0 +1,53 @@
+# server
+server:
+  port: 12800
+
+# Spring
+spring:
+  application:
+    name: scbrl-cloud-gateway
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  #表明gateway开启服务注册和发现的功能，并且spring cloud gateway自动根据服务发现为每一个服务创建了一个router，这个router将以服务名开头的请求路径转发到对应的服务。
+          lowerCaseServiceId: true   #是将请求路径上的服务名配置为小写（因为服务注册的时候，向注册中心注册时将服务名转成大写的了），比如以/service-hi/*的请求路径被路由转发到服务名为service-hi的服务上。
+      # 网关路由规则
+      routes:
+        # App-接口服务
+        - id: app
+          uri: lb://scbrl-cloud-app
+          filters:
+            - StripPrefix=1
+          predicates:
+            - Path=/app/**
+        # Admin-管理后台
+        - id: admin
+          uri: lb://scbrl-cloud-admin
+          filters:
+            - StripPrefix=1
+          predicates:
+            - Path=/admin/**
+---
+# 开发环境
+spring:
+  profiles: dev
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+    nacos:
+      config:
+        server-addr: 124.70.221.13:8848
+        namespace: 20a4fca1-1700-43b9-9094-918b55b9460f
+        file-extension: yml
+        shared-configs:
+          - dataId: scbrl-base.yml
+            refresh: true
+      discovery:
+        server-addr: 124.70.221.13:8848
+        namespace: 20a4fca1-1700-43b9-9094-918b55b9460f
+
+
